@@ -1,7 +1,7 @@
 const adminModel = require("../models/adminModel");
 const { responseReture } = require("../utiles/response");
-const bcrypt = require('bcrypt');
-const {createToken} = require("../utiles/tokenCreate");
+const bcrypt = require("bcrypt");
+const { createToken } = require("../utiles/tokenCreate");
 class authControllers {
   admin_login = async (req, res) => {
     const { email, password } = req.body;
@@ -11,15 +11,14 @@ class authControllers {
       if (admin) {
         const match = await bcrypt.compare(password, admin.password);
         console.log("Password Match:", match);
-        if(match){
+        if (match) {
           const token = await createToken({
             id: admin._id,
-            role:admin.role,
-
-          })
-          res.cookie("accessToken",token,{
-            expires: new Date(Date.now()+7*24*60*60*1000), // 7 days
-          })
+            role: admin.role,
+          });
+          res.cookie("accessToken", token, {
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+          });
           responseReture(res, 200, {
             success: true,
             message: `Login Successful`,
@@ -31,8 +30,7 @@ class authControllers {
               role: admin.role,
             },
           });
-        }
-        else{
+        } else {
           responseReture(res, 401, { error: "Invalid Password" });
           return;
         }
@@ -43,6 +41,20 @@ class authControllers {
       responseReture(res, 500, { error: error.message });
     }
   };
+
+  getUser = async (req, res) => {
+    const { id, role } = req;
+    try {
+      if (role === "admin") {
+        const user = await adminModel.findById(id);
+        resoinseReturn(res, 200, { userInfo: user });
+      }else{
+        console.log("Seller Info")
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }; // end getUser Method
 }
 
 module.exports = new authControllers();
