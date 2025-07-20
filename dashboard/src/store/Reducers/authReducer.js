@@ -5,11 +5,11 @@ export const admin_login = createAsyncThunk(
     async (info)=>{
         console.log("Admin Login Info:", info);
         try{
-            // const {data} = await api.post('/admin-login',info, {withCredentials: true});
-            // console.log("Admin Info:", data);
+            const {data} = await api.post('/admin-login',info, {withCredentials: true});
+            console.log("Admin Info:", data);
         }
         catch(error){
-            console.error("Error during admin login:", error);
+            console.error(error.response.data);
             throw error;
         }
     }
