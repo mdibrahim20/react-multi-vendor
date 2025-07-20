@@ -9,7 +9,7 @@ export const admin_login = createAsyncThunk(
             console.log("Admin Info:", data);
         }
         catch(error){
-            console.error("Error during admin login:", error);
+            console.error(error.response.data);
             throw error;
         }
     }
