@@ -1,0 +1,77 @@
+import {
+  FaTachometerAlt,
+  FaClipboardList,
+  FaProjectDiagram,
+  FaUsers,
+  FaMoneyCheckAlt,
+  FaUserSlash,
+  FaUserCheck,
+  FaComments,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
+export const allNav = [
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: <FaTachometerAlt />,
+    role: "admin",
+    path: "/admin/dashboard",
+  },
+  {
+    id: 2,
+    title: "Orders",
+    icon: <FaClipboardList />,
+    role: "admin",
+    path: "/admin/dashboard/orders",
+  },
+  {
+    id: 3,
+    title: "Category",
+    icon: <FaProjectDiagram />,
+    role: "admin",
+    path: "/admin/dashboard/category",
+  },
+  {
+    id: 4,
+    title: "Sellers",
+    icon: <FaUsers />,
+    role: "admin",
+    path: "/admin/dashboard/sellers",
+  },
+  {
+    id: 5,
+    title: "Payment Request",
+    icon: <FaMoneyCheckAlt />,
+    role: "admin",
+    path: "/admin/dashboard/payment-request",
+  },
+  {
+    id: 6,
+    title: "Deactive Sellers",
+    icon: <FaUserSlash />,
+    role: "admin",
+    path: "/admin/dashboard/deactive-sellers",
+  },
+  {
+    id: 7,
+    title: "Seller Request",
+    icon: <FaUserCheck />,
+    role: "admin",
+    path: "/admin/dashboard/seller-request",
+  },
+  {
+    id: 8,
+    title: "Live Chat",
+    icon: <FaComments />,
+    role: "admin",
+    path: "/admin/dashboard/live-chat",
+  },
+  {
+    id: 9,
+    title: "Logout",
+    icon: <FaSignOutAlt />,
+    role: "admin",
+    path: "/logout",
+  },
+];
