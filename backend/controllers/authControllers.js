@@ -22,7 +22,7 @@ class authControllers {
           })
           responseReture(res, 200, {
             success: true,
-            message: `Login Successful${token ? token : ''}`,
+            message: `Login Successful`,
             userInfo: {
               id: admin._id,
               name: admin.name,
