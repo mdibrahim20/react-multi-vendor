@@ -6,5 +6,5 @@ export const adminRoutes = [
     path: "admin/dashboard",
     element: <AdminDashboard />,
     role: "admin",
-  },
+  }
 ];
