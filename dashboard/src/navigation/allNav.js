@@ -30,7 +30,7 @@ export const allNav = [
     title: "Category",
     icon: <FaProjectDiagram />,
     role: "admin",
-    path: "/admin/dashboard/category",
+    path: "/admin/dashboard/categories",
   },
   {
     id: 4,
