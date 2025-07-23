@@ -75,7 +75,7 @@ const SellerPage = () => {
             {paginated.map((seller, index) => (
               <tr key={seller.id} className="border-b dark:border-gray-700 text-center">
                 <td className="px-4 py-2">{(currentPage - 1) * perPage + index + 1}</td>
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 flex justify-center items-center">
                   <img src={seller.image} alt={seller.name} className="w-10 h-10 object-cover rounded-full" />
                 </td>
                 <td className="px-4 py-2">{seller.name}</td>
