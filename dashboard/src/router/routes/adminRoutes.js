@@ -4,6 +4,7 @@ const AdminOrders = lazy(() => import("../../views/admin/Orders"));
 const Category = lazy(() => import("../../views/admin/Category"));
 const Seller = lazy(() => import("../../views/admin/Seller"));
 const PaymentRequest = lazy(() => import("../../views/admin/PaymentRequest"));
+const DeactiveSeller = lazy(() => import("../../views/admin/DeactiveSeller"));
 
 export const adminRoutes = [
   {
@@ -29,6 +30,11 @@ export const adminRoutes = [
   {
     path: "admin/dashboard/payment-request",
     element: <PaymentRequest />,
+    role: "admin",
+  },
+  {
+    path: "admin/dashboard/deactive-sellers",
+    element: <DeactiveSeller />,
     role: "admin",
   }
 ];
