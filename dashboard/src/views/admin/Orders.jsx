@@ -1,56 +1,59 @@
 // OrdersPage.js
-import React, { useState } from 'react';
-import { FaEye, FaEdit, FaTrash, FaSearch, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import Pagination from '../pagination';
+import React, { useState } from "react";
+import {
+  FaEye,
+  FaEdit,
+  FaTrash,
+  FaSearch,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
+import Pagination from "../pagination";
+import { Link } from "react-router-dom";
 const dummyOrders = [
   {
     id: 1,
-    orderId: '#951',
-    price: '$1779.53',
-    paymentStatus: 'Paid',
-    orderStatus: 'Delivered',
+    orderId: "#951",
+    price: "$1779.53",
+    paymentStatus: "Paid",
+    orderStatus: "Delivered",
     otherOrders: [
-      { id: '#951-1', item: 'Item A', qty: 2 },
-      { id: '#951-2', item: 'Item B', qty: 1 },
+      { id: "#951-1", item: "Item A", qty: 2 },
+      { id: "#951-2", item: "Item B", qty: 1 },
     ],
   },
   {
     id: 2,
-    orderId: '#238',
-    price: '$2215.78',
-    paymentStatus: 'Due',
-    orderStatus: 'Processing',
-    otherOrders: [
-      { id: '#238-1', item: 'Item C', qty: 3 },
-    ],
+    orderId: "#238",
+    price: "$2215.78",
+    paymentStatus: "Due",
+    orderStatus: "Processing",
+    otherOrders: [{ id: "#238-1", item: "Item C", qty: 3 }],
   },
   {
     id: 3,
-    orderId: '#872',
-    price: '$3120.99',
-    paymentStatus: 'Paid',
-    orderStatus: 'Shipped',
+    orderId: "#872",
+    price: "$3120.99",
+    paymentStatus: "Paid",
+    orderStatus: "Shipped",
     otherOrders: [
-      { id: '#872-1', item: 'Item D', qty: 4 },
-      { id: '#872-2', item: 'Item E', qty: 2 },
+      { id: "#872-1", item: "Item D", qty: 4 },
+      { id: "#872-2", item: "Item E", qty: 2 },
     ],
   },
   {
     id: 4,
-    orderId: '#111',
-    price: '$1234.56',
-    paymentStatus: 'Paid',
-    orderStatus: 'Delivered',
-    otherOrders: [
-      { id: '#111-1', item: 'Item F', qty: 1 },
-    ],
+    orderId: "#111",
+    price: "$1234.56",
+    paymentStatus: "Paid",
+    orderStatus: "Delivered",
+    otherOrders: [{ id: "#111-1", item: "Item F", qty: 1 }],
   },
 ];
 
-
 const OrdersPage = () => {
   const [expandedId, setExpandedId] = useState(null);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -58,8 +61,9 @@ const OrdersPage = () => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  const filteredOrders = dummyOrders.filter(order => {
-    const orderString = `${order.orderId} ${order.price} ${order.paymentStatus} ${order.orderStatus}`.toLowerCase();
+  const filteredOrders = dummyOrders.filter((order) => {
+    const orderString =
+      `${order.orderId} ${order.price} ${order.paymentStatus} ${order.orderStatus}`.toLowerCase();
     return orderString.includes(searchValue.toLowerCase());
   });
 
@@ -93,7 +97,9 @@ const OrdersPage = () => {
           onChange={(e) => setPerPage(parseInt(e.target.value))}
         >
           {[5, 10, 15].map((num) => (
-            <option key={num} value={num}>{num}</option>
+            <option key={num} value={num}>
+              {num}
+            </option>
           ))}
         </select>
       </div>
@@ -114,14 +120,18 @@ const OrdersPage = () => {
             {paginatedOrders.map((order) => (
               <React.Fragment key={order.id}>
                 <tr className="border-b dark:border-gray-700">
-                  <td className="px-4 py-3 font-medium text-indigo-600">{order.orderId}</td>
+                  <td className="px-4 py-3 font-medium text-indigo-600">
+                    {order.orderId}
+                  </td>
                   <td className="px-4 py-3">{order.price}</td>
                   <td className="px-4 py-3">
-                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      order.paymentStatus === 'Paid'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-orange-100 text-orange-700'
-                    }`}>
+                    <span
+                      className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                        order.paymentStatus === "Paid"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-orange-100 text-orange-700"
+                      }`}
+                    >
                       {order.paymentStatus}
                     </span>
                   </td>
@@ -131,33 +141,52 @@ const OrdersPage = () => {
                       onClick={() => toggleDropdown(order.id)}
                       className="text-sm text-blue-600 hover:underline flex items-center space-x-1"
                     >
-                      {expandedId === order.id ? <FaChevronUp /> : <FaChevronDown />}
+                      {expandedId === order.id ? (
+                        <FaChevronUp />
+                      ) : (
+                        <FaChevronDown />
+                      )}
                     </button>
                   </td>
                   <td className="px-4 py-3 space-x-2 text-gray-500 dark:text-gray-300">
-                    <button className="hover:text-blue-500"><FaEye /></button>
-                    <button className="hover:text-green-500"><FaEdit /></button>
-                    <button className="hover:text-red-500"><FaTrash /></button>
+                   <button className="hover:text-green-500"> <Link
+                      to="/admin/dashboard/order-details"
+                      className="hover:text-blue-500"
+                    >
+                      <FaEye/>
+                    </Link></button>
+                    <button className="hover:text-green-500">
+                      <FaEdit />
+                    </button>
+                    <button className="hover:text-red-500">
+                      <FaTrash />
+                    </button>
                   </td>
                 </tr>
-                {expandedId === order.id && order.otherOrders.map((item) => (
-                  <tr key={item.id} className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                    <td className="px-4 py-2 text-indigo-500">{item.id}</td>
-                    <td className="px-4 py-2">{order.price}</td>
-                    <td className="px-4 py-2">
-                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                        order.paymentStatus === 'Paid'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-orange-100 text-orange-700'
-                      }`}>
-                        {order.paymentStatus}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2">{order.orderStatus}</td>
-                    <td className="px-4 py-2"></td>
-                    <td className="px-4 py-2"></td>
-                  </tr>
-                ))}
+                {expandedId === order.id &&
+                  order.otherOrders.map((item) => (
+                    <tr
+                      key={item.id}
+                      className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+                    >
+                      <td className="px-4 py-2 text-indigo-500">{item.id}</td>
+                      <td className="px-4 py-2">{order.price}</td>
+                      <td className="px-4 py-2">
+                        <span
+                          className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                            order.paymentStatus === "Paid"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-orange-100 text-orange-700"
+                          }`}
+                        >
+                          {order.paymentStatus}
+                        </span>
+                      </td>
+                      <td className="px-4 py-2">{order.orderStatus}</td>
+                      <td className="px-4 py-2"></td>
+                      <td className="px-4 py-2"></td>
+                    </tr>
+                  ))}
               </React.Fragment>
             ))}
           </tbody>
