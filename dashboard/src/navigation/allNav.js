@@ -8,9 +8,16 @@ import {
   FaUserCheck,
   FaComments,
   FaSignOutAlt,
+  FaPlusSquare,
+  FaBoxOpen,
+  FaTags,
+  FaMoneyBillWave,
+  FaHeadset,
+  FaUserCircle,
 } from "react-icons/fa";
 
 export const allNav = [
+  // Admin Routes
   {
     id: 1,
     title: "Dashboard",
@@ -74,68 +81,76 @@ export const allNav = [
     role: "admin",
     path: "/logout",
   },
+
+  // Seller Routes
   {
     id: 10,
     title: "Dashboard",
-    icon: <FaSignOutAlt />,
+    icon: <FaTachometerAlt />,
     role: "seller",
     path: "/seller/dashboard",
   },
   {
     id: 11,
     title: "Add Product",
-    icon: <FaSignOutAlt />,
+    icon: <FaPlusSquare />,
     role: "seller",
     path: "/seller/dashboard/add-product",
   },
   {
     id: 12,
     title: "All Product",
-    icon: <FaSignOutAlt />,
+    icon: <FaBoxOpen />,
     role: "seller",
     path: "/seller/dashboard/all-product",
   },
   {
     id: 13,
     title: "Discount Product",
-    icon: <FaSignOutAlt />,
+    icon: <FaTags />,
     role: "seller",
     path: "/seller/dashboard/discount-product",
   },
   {
     id: 14,
     title: "Orders",
-    icon: <FaSignOutAlt />,
+    icon: <FaClipboardList />,
     role: "seller",
     path: "/seller/dashboard/orders",
   },
   {
     id: 15,
     title: "Payments",
-    icon: <FaSignOutAlt />,
+    icon: <FaMoneyBillWave />,
     role: "seller",
     path: "/seller/dashboard/payments",
   },
   {
     id: 16,
     title: "Chat Support",
-    icon: <FaSignOutAlt />,
+    icon: <FaHeadset />,
     role: "seller",
     path: "/seller/dashboard/chat-support",
   },
   {
     id: 17,
     title: "Chat Customer",
-    icon: <FaSignOutAlt />,
+    icon: <FaComments />,
     role: "seller",
     path: "/seller/dashboard/chat-customer",
   },
   {
     id: 18,
+    title: "Profile",
+    icon: <FaUserCircle />,
+    role: "seller",
+    path: "/seller/dashboard/profile",
+  },
+  {
+    id: 19,
     title: "Logout",
     icon: <FaSignOutAlt />,
     role: "seller",
     path: "/seller/logout",
   },
-
 ];
