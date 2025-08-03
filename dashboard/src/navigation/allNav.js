@@ -118,13 +118,20 @@ export const allNav = [
   },
   {
     id: 16,
+    title: "Chat Support",
+    icon: <FaSignOutAlt />,
+    role: "seller",
+    path: "/seller/dashboard/chat-support",
+  },
+  {
+    id: 17,
     title: "Chat Customer",
     icon: <FaSignOutAlt />,
     role: "seller",
     path: "/seller/dashboard/chat-customer",
   },
   {
-    id: 17,
+    id: 18,
     title: "Logout",
     icon: <FaSignOutAlt />,
     role: "seller",
