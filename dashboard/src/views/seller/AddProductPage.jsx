@@ -1,6 +1,20 @@
 import React, { useState, useRef } from "react";
 import { FaUpload, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const AddProductPage = () => {
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -63,7 +77,12 @@ const AddProductPage = () => {
   };
 
   return (
-    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <motion.div
+      className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen"
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
+    >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Add Product</h2>
         <Link
@@ -76,19 +95,22 @@ const AddProductPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Form */}
-        <div className="lg:col-span-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-6 shadow-md">
+        <motion.div
+          className="lg:col-span-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-6 shadow-md"
+          whileHover={{ scale: 1.02 }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" placeholder="Product Name" className="input" />
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" placeholder="Brand Name" className="input" />
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <input type="text" placeholder="Product Name" className="input-style" />
+            <input type="text" placeholder="Brand Name" className="input-style" />
+            <select className="input-style">
               <option value="">--select category--</option>
               <option value="tshirt">Tshirt</option>
               <option value="shirt">Shirt</option>
               <option value="pants">Pants</option>
             </select>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" placeholder="Product Stock" className="input" />
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" placeholder="Price" className="input" />
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" placeholder="% Discount" className="input" />
+            <input type="number" placeholder="Product Stock" className="input-style" />
+            <input type="number" placeholder="Price" className="input-style" />
+            <input type="number" placeholder="% Discount" className="input-style" />
           </div>
 
           <textarea
@@ -102,7 +124,7 @@ const AddProductPage = () => {
               Upload Product Images
             </label>
             <div
-              className="border-2 border-dashed border-gray-400 dark:border-gray-600 p-4 rounded-md text-center cursor-pointer"
+              className="border-2 border-dashed border-gray-400 dark:border-gray-600 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               onClick={() => inputRef.current.click()}
             >
               <div className="text-gray-500 text-sm">
@@ -127,18 +149,26 @@ const AddProductPage = () => {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Image Previews */}
-        <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded-md overflow-y-auto max-h-[550px]">
+        <motion.div
+          className="border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded-md overflow-y-auto max-h-[550px]"
+          whileHover={{ scale: 1.01 }}
+        >
           {imagePreviews.length === 0 ? (
             <p className="text-gray-400 text-sm text-center">No images uploaded yet.</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {imagePreviews.map((img) => (
-                <div
+              {imagePreviews.map((img, i) => (
+                <motion.div
                   key={img.id}
                   className="relative border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-800 shadow-sm"
+                  variants={fadeIn}
+                  custom={i}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ scale: 1.05 }}
                 >
                   <div className="relative">
                     {img.uploading ? (
@@ -154,7 +184,6 @@ const AddProductPage = () => {
                         className="w-full h-32 object-cover rounded-md"
                       />
                     )}
-
                     <button
                       className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full text-xs"
                       onClick={() => handleRemoveImage(img.id)}
@@ -165,13 +194,13 @@ const AddProductPage = () => {
                   <p className="text-xs text-center mt-2 text-gray-600 dark:text-gray-300 break-all">
                     {img.name}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

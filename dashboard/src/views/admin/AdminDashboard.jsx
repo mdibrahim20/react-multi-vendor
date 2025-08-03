@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { FaDollarSign, FaBoxOpen, FaStore, FaShoppingCart } from 'react-icons/fa';
 import Chart from 'react-apexcharts';
+import { motion } from 'framer-motion';
 
 const stats = [
     { title: 'Total Sales', icon: <FaDollarSign />, value: '$12,345' },
@@ -64,12 +65,17 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((item, idx) => (
-                    <div
+                    <motion.div
                         key={idx}
+                        whileHover={{ scale: 1.03 }}
                         className="flex items-center gap-4 p-6 bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
                     >
                         <div className="text-3xl text-indigo-700 dark:text-indigo-400">
@@ -79,27 +85,41 @@ const AdminDashboard = () => {
                             <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">{item.title}</h2>
                             <p className="text-xl font-bold text-gray-900 dark:text-white">{item.value}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 
             {/* Charts and Messages */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
                 {/* Chart */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md">
+                <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md"
+                >
                     <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-4">Weekly Sales Overview</h2>
                     <Chart options={chartData.options} series={chartData.series} type="line" height={250} />
-                </div>
+                </motion.div>
 
                 {/* Recent Messages */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md">
+                <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md"
+                >
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-gray-800 dark:text-white">Recent Seller Messages</h2>
                         <a href="#" className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">View All</a>
                     </div>
                     <ul className="space-y-4">
                         {messages.map((msg) => (
-                            <li key={msg.id} className="border-b border-gray-200 dark:border-gray-700 pb-3">
+                            <motion.li
+                                key={msg.id}
+                                whileHover={{ scale: 1.02 }}
+                                className="border-b border-gray-200 dark:border-gray-700 pb-3"
+                            >
                                 <div className="flex gap-3 items-start">
                                     <img src={msg.avatar} alt={msg.name} className="w-10 h-10 rounded-full object-cover" />
                                     <div className="flex-1">
@@ -113,14 +133,19 @@ const AdminDashboard = () => {
                                         <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{msg.message}</p>
                                     </div>
                                 </div>
-                            </li>
+                            </motion.li>
                         ))}
                     </ul>
-                </div>
+                </motion.div>
             </div>
 
             {/* Recent Orders Table */}
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md mt-8">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md mt-8"
+            >
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold text-gray-800 dark:text-white">Recent Orders</h2>
                     <a href="#" className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">View All</a>
@@ -139,11 +164,16 @@ const AdminDashboard = () => {
                         </thead>
                         <tbody>
                             {orders.map((order, index) => (
-                                <tr key={index} className="border-b dark:border-gray-700">
+                                <motion.tr
+                                    key={index}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.1 * index, duration: 0.4 }}
+                                    className="border-b dark:border-gray-700"
+                                >
                                     <td className="py-2 px-4 font-medium text-gray-800 dark:text-white">{order.id}</td>
                                     <td className="py-2 px-4 text-gray-700 dark:text-gray-300">{order.customer}</td>
                                     <td className="py-2 px-4 text-gray-700 dark:text-gray-300">{order.total}</td>
-                                    {/* <td className="py-2 px-4 text-gray-700 dark:text-gray-300">{order.paymentStatus}</td> */}
                                     <td className="py-2 px-4">
                                         <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
                                             order.paymentStatus === 'Pending'
@@ -167,13 +197,13 @@ const AdminDashboard = () => {
                                         </span>
                                     </td>
                                     <td className="py-2 px-4 text-gray-700 dark:text-gray-300">{order.date}</td>
-                                </tr>
+                                </motion.tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 

@@ -23,17 +23,29 @@ const PaymentRequest = () => {
   const statusBadge = (status) => {
     switch (status) {
       case 'Approved':
-        return <span className="text-green-600 inline-flex items-center"><FaCheckCircle className="mr-1" /> {status}</span>;
+        return (
+          <span className="text-green-600 inline-flex items-center transition-all duration-500 ease-in-out">
+            <FaCheckCircle className="mr-1" /> {status}
+          </span>
+        );
       case 'Rejected':
-        return <span className="text-red-600 inline-flex items-center"><FaTimesCircle className="mr-1" /> {status}</span>;
+        return (
+          <span className="text-red-600 inline-flex items-center transition-all duration-500 ease-in-out">
+            <FaTimesCircle className="mr-1" /> {status}
+          </span>
+        );
       case 'Pending':
       default:
-        return <span className="text-yellow-600 inline-flex items-center"><FaClock className="mr-1" /> {status}</span>;
+        return (
+          <span className="text-yellow-600 inline-flex items-center transition-all duration-500 ease-in-out">
+            <FaClock className="mr-1" /> {status}
+          </span>
+        );
     }
   };
 
   return (
-    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-all duration-500 ease-in-out">
       <h1 className="text-3xl font-bold mb-6">Payment Withdrawals</h1>
 
       <div className="overflow-x-auto shadow rounded-lg">
@@ -49,13 +61,18 @@ const PaymentRequest = () => {
           </thead>
           <tbody>
             {paginated.map((entry, index) => (
-              <tr key={entry.id} className="border-b dark:border-gray-700">
+              <tr
+                key={entry.id}
+                className="border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out hover:scale-[1.01]"
+              >
                 <td className="px-4 py-2">{(currentPage - 1) * perPage + index + 1}</td>
                 <td className="px-4 py-2 font-medium">{entry.amount}</td>
                 <td className="px-4 py-2">{statusBadge(entry.status)}</td>
                 <td className="px-4 py-2">{entry.date}</td>
                 <td className="px-4 py-2">
-                  <button className="text-blue-600 hover:underline text-sm">View</button>
+                  <button className="text-blue-600 hover:text-indigo-500 hover:underline text-sm transition duration-500 ease-in-out">
+                    View
+                  </button>
                 </td>
               </tr>
             ))}

@@ -1,3 +1,4 @@
+// ChatSeller.js
 import React, { useState, useEffect } from 'react';
 import {
   FaSearchengin,
@@ -10,6 +11,7 @@ import {
   FaInstagram,
   FaX
 } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
 
 const ChatSeller = () => {
   const [message, setMessage] = useState('');
@@ -39,7 +41,10 @@ const ChatSeller = () => {
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white overflow-hidden">
 
       {/* LEFT SIDEBAR */}
-      <div
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
         className={`
           h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 p-4 overflow-y-auto
           ${isMobile ? 'absolute top-0 left-0 z-30 transition-transform duration-300 ease-in-out' : ''}
@@ -62,13 +67,14 @@ const ChatSeller = () => {
           />
         </div>
         {[...Array(5)].map((_, idx) => (
-          <div
+          <motion.div
             key={idx}
+            whileHover={{ scale: 1.02 }}
+            className="flex items-center justify-between p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md cursor-pointer mb-2"
             onClick={() => {
               setShowRightSidebar(true);
               setShowLeftSidebar(false);
             }}
-            className="flex items-center justify-between p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md cursor-pointer mb-2"
           >
             <div className="flex items-center gap-3">
               <img
@@ -82,12 +88,17 @@ const ChatSeller = () => {
               </div>
             </div>
             <span className="text-xs bg-indigo-600 text-white px-2 py-1 rounded-full">8</span>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* MIDDLE CHAT PANEL */}
-      <div className="flex-1 flex flex-col">
+      <motion.div
+        className="flex-1 flex flex-col"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex items-center justify-between border-b border-gray-300 dark:border-gray-700 p-4">
           <div className="flex items-center gap-3">
             <img
@@ -115,18 +126,18 @@ const ChatSeller = () => {
 
         <div className="flex-1 p-4 space-y-4 overflow-y-auto">
           <div className="flex flex-col gap-2">
-            <div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm">
+            <motion.div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Hey! How are you?
-            </div>
-            <div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Good, I will book the meeting room for you.
-            </div>
-            <div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Hi, I am good, what about you?
-            </div>
-            <div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Thanks, It will be great.
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -145,10 +156,13 @@ const ChatSeller = () => {
             <FaPaperPlane />
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT SIDEBAR */}
-      <div
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
         className={`
           h-full w-64 md:w-1/4 bg-white dark:bg-gray-800 border-l border-gray-300 dark:border-gray-700 p-4 overflow-y-auto
           ${isMobile ? 'absolute top-0 right-0 z-30 transition-transform duration-300 ease-in-out' : ''}
@@ -177,7 +191,11 @@ const ChatSeller = () => {
           <h4 className="text-sm font-semibold mb-2">Shared Documents</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {[...Array(6)].map((_, idx) => (
-              <div key={idx} className="relative group">
+              <motion.div
+                key={idx}
+                className="relative group"
+                whileHover={{ scale: 1.05 }}
+              >
                 <img
                   src={`/images/demo${(idx % 3) + 1}.jpg`}
                   alt="doc"
@@ -186,7 +204,7 @@ const ChatSeller = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-30 rounded-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <span className="text-xs text-white">View</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -198,7 +216,7 @@ const ChatSeller = () => {
             Close
           </button>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

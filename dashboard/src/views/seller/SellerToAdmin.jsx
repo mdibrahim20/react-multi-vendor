@@ -8,8 +8,21 @@ import {
   FaFacebook,
   FaTwitter,
   FaInstagram,
-  FaX
+  FaX,
 } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeInOut',
+    },
+  },
+};
 
 const SellerToAdmin = () => {
   const [message, setMessage] = useState('');
@@ -37,9 +50,11 @@ const SellerToAdmin = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white overflow-hidden">
-
       {/* LEFT SIDEBAR */}
-      <div
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeVariant}
         className={`
           h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 p-4 overflow-y-auto
           ${isMobile ? 'absolute top-0 left-0 z-30 transition-transform duration-300 ease-in-out' : ''}
@@ -62,8 +77,9 @@ const SellerToAdmin = () => {
           />
         </div>
         {[...Array(5)].map((_, idx) => (
-          <div
+          <motion.div
             key={idx}
+            whileHover={{ scale: 1.02, transition: { type: 'spring', stiffness: 300 } }}
             onClick={() => {
               setShowRightSidebar(true);
               setShowLeftSidebar(false);
@@ -82,12 +98,17 @@ const SellerToAdmin = () => {
               </div>
             </div>
             <span className="text-xs bg-indigo-600 text-white px-2 py-1 rounded-full">8</span>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* MIDDLE CHAT PANEL */}
-      <div className="flex-1 flex flex-col">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeVariant}
+        className="flex-1 flex flex-col"
+      >
         <div className="flex items-center justify-between border-b border-gray-300 dark:border-gray-700 p-4">
           <div className="flex items-center gap-3">
             <img
@@ -115,18 +136,18 @@ const SellerToAdmin = () => {
 
         <div className="flex-1 p-4 space-y-4 overflow-y-auto">
           <div className="flex flex-col gap-2">
-            <div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm">
+            <motion.div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Hey! How are you?
-            </div>
-            <div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Good, I will book the meeting room for you.
-            </div>
-            <div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Hi, I am good, what about you?
-            </div>
-            <div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm">
+            </motion.div>
+            <motion.div className="self-end bg-indigo-600 text-white px-4 py-2 rounded-lg w-max text-sm" whileHover={{ scale: 1.01 }}>
               Thanks, It will be great.
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -145,10 +166,13 @@ const SellerToAdmin = () => {
             <FaPaperPlane />
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT SIDEBAR */}
-      <div
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeVariant}
         className={`
           h-full w-64 md:w-1/4 bg-white dark:bg-gray-800 border-l border-gray-300 dark:border-gray-700 p-4 overflow-y-auto
           ${isMobile ? 'absolute top-0 right-0 z-30 transition-transform duration-300 ease-in-out' : ''}
@@ -177,7 +201,7 @@ const SellerToAdmin = () => {
           <h4 className="text-sm font-semibold mb-2">Shared Documents</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {[...Array(6)].map((_, idx) => (
-              <div key={idx} className="relative group">
+              <motion.div key={idx} className="relative group" whileHover={{ scale: 1.02 }}>
                 <img
                   src={`/images/demo${(idx % 3) + 1}.jpg`}
                   alt="doc"
@@ -186,7 +210,7 @@ const SellerToAdmin = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-30 rounded-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <span className="text-xs text-white">View</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -198,7 +222,7 @@ const SellerToAdmin = () => {
             Close
           </button>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

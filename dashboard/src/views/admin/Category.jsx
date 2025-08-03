@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { FaEdit, FaTrash, FaSearch, FaUpload } from 'react-icons/fa';
 import Pagination from '../pagination';
+import { motion } from 'framer-motion';
 
 const dummyCategories = [
   { id: 1, name: 'Tshirt', image: 'http://localhost:3000/images/category/1.jpg' },
@@ -55,9 +56,19 @@ const CategoryPage = () => {
   };
 
   return (
-    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen"
+    >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="md:col-span-2"
+        >
           <div className="flex justify-between items-center mb-6">
             <select
               className="border px-2 py-1 rounded-md dark:bg-gray-800 dark:border-gray-600"
@@ -92,7 +103,12 @@ const CategoryPage = () => {
               </thead>
               <tbody>
                 {paginated.map((cat, index) => (
-                  <tr key={cat.id} className="border-b dark:border-gray-700">
+                  <motion.tr
+                    key={cat.id}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                    className="border-b dark:border-gray-700"
+                  >
                     <td className="px-4 py-2">{(currentPage - 1) * perPage + index + 1}</td>
                     <td className="px-4 py-2">
                       <img src={cat.image} alt={cat.name} className="w-10 h-10 object-cover rounded" />
@@ -102,7 +118,7 @@ const CategoryPage = () => {
                       <button className="text-yellow-500 hover:text-yellow-600"><FaEdit /></button>
                       <button className="text-red-500 hover:text-red-600"><FaTrash /></button>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -115,9 +131,14 @@ const CategoryPage = () => {
               onPageChange={setCurrentPage}
             />
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-4 h-[90%]">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-4 h-[90%]"
+        >
           <h2 className="text-lg font-semibold mb-4">Add Category</h2>
           <input
             type="text"
@@ -151,9 +172,9 @@ const CategoryPage = () => {
           <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md text-sm font-medium">
             Add Category
           </button>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

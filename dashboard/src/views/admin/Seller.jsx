@@ -1,4 +1,3 @@
-// SellerPage.js
 import React, { useState } from 'react';
 import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import Pagination from '../pagination';
@@ -41,7 +40,7 @@ const SellerPage = () => {
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return (
-    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-all duration-500 ease-in-out">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Sellers</h1>
         <div className="relative">
@@ -73,19 +72,28 @@ const SellerPage = () => {
           </thead>
           <tbody>
             {paginated.map((seller, index) => (
-              <tr key={seller.id} className="border-b dark:border-gray-700 text-center">
+              <tr
+                key={seller.id}
+                className="border-b dark:border-gray-700 text-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out group hover:scale-[1.01]"
+              >
                 <td className="px-4 py-2">{(currentPage - 1) * perPage + index + 1}</td>
-                <td className="px-4 py-2">
-                  <img src={seller.image} alt={seller.name} className="w-10 h-10 object-cover rounded-full" />
+                <td className="px-4 py-2 flex justify-center items-center">
+                  <img
+                    src={seller.image}
+                    alt={seller.name}
+                    className="w-10 h-10 object-cover rounded-full transform group-hover:scale-110 transition duration-500 ease-in-out"
+                  />
                 </td>
                 <td className="px-4 py-2">{seller.name}</td>
                 <td className="px-4 py-2">{seller.shopName}</td>
                 <td className="px-4 py-2">
-                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                    seller.paymentStatus === 'Paid'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-orange-100 text-orange-700'
-                  }`}>
+                  <span
+                    className={`px-2 py-1 text-xs font-semibold rounded-full transition-all duration-500 ease-in-out ${
+                      seller.paymentStatus === 'Paid'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-orange-100 text-orange-700'
+                    }`}
+                  >
                     {seller.paymentStatus}
                   </span>
                 </td>
@@ -93,8 +101,12 @@ const SellerPage = () => {
                 <td className="px-4 py-2">{seller.division}</td>
                 <td className="px-4 py-2">{seller.district}</td>
                 <td className="px-4 py-2 space-x-2">
-                  <button className="text-yellow-500 hover:text-yellow-600"><FaEdit /></button>
-                  <button className="text-red-500 hover:text-red-600"><FaTrash /></button>
+                  <button className="text-yellow-500 hover:text-yellow-600 transition-transform duration-300 ease-in-out transform hover:scale-110">
+                    <FaEdit />
+                  </button>
+                  <button className="text-red-500 hover:text-red-600 transition-transform duration-300 ease-in-out transform hover:scale-110">
+                    <FaTrash />
+                  </button>
                 </td>
               </tr>
             ))}
