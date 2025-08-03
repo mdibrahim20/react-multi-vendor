@@ -86,7 +86,7 @@ export const allNav = [
     title: "Add Product",
     icon: <FaSignOutAlt />,
     role: "seller",
-    path: "/seller/add-product",
+    path: "/seller/dashboard/add-product",
   },
   {
     id: 12,
