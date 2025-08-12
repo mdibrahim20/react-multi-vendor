@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const dummyProducts = [
- {
+  {
     id: 1,
     image: "http://localhost:3000/images/admin.jpg",
     name: "Men Full Sleeve",
@@ -156,16 +157,21 @@ const AllProductPage = () => {
         >
           <thead>
             <tr className="bg-gray-100 text-gray-700">
-              {["NO", "IMAGE", "NAME", "CATEGORY", "BRAND", "PRICE", "DISCOUNT", "STOCK", "ACTION"].map(
-                (head, i) => (
-                  <th
-                    key={i}
-                    className="py-3 px-4 text-left whitespace-nowrap"
-                  >
-                    {head}
-                  </th>
-                )
-              )}
+              {[
+                "NO",
+                "IMAGE",
+                "NAME",
+                "CATEGORY",
+                "BRAND",
+                "PRICE",
+                "DISCOUNT",
+                "STOCK",
+                "ACTION",
+              ].map((head, i) => (
+                <th key={i} className="py-3 px-4 text-left whitespace-nowrap">
+                  {head}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -179,7 +185,9 @@ const AllProductPage = () => {
                 variants={fadeInUp}
                 transition={{ duration: 0.2, delay: idx * 0.05 }}
               >
-                <td className="py-3 px-4">{(currentPage - 1) * limit + idx + 1}</td>
+                <td className="py-3 px-4">
+                  {(currentPage - 1) * limit + idx + 1}
+                </td>
                 <td className="py-3 px-4">
                   <img
                     src={product.image}
@@ -195,13 +203,24 @@ const AllProductPage = () => {
                 <td className="py-3 px-4">{product.stock}</td>
                 <td className="py-3 px-4">
                   <div className="flex gap-3">
-                    <button className="text-yellow-600 hover:scale-110 transition-transform">
+                    <Link
+                      to={`/seller/dashboard/edit-product/${product.id}`}
+                      state={{ product }} // pass current row as state so edit page can prefill
+                      className="text-yellow-600 hover:scale-110 transition-transform"
+                      title="Edit"
+                    >
                       <FaEdit />
-                    </button>
-                    <button className="text-green-600 hover:scale-110 transition-transform">
+                    </Link>
+                    <button
+                      className="text-green-600 hover:scale-110 transition-transform"
+                      title="View"
+                    >
                       <FaEye />
                     </button>
-                    <button className="text-red-600 hover:scale-110 transition-transform">
+                    <button
+                      className="text-red-600 hover:scale-110 transition-transform"
+                      title="Delete"
+                    >
                       <FaTrash />
                     </button>
                   </div>
@@ -225,7 +244,9 @@ const AllProductPage = () => {
             key={pg}
             onClick={() => setCurrentPage(pg)}
             className={`px-3 py-1 rounded transition duration-300 ease-in-out ${
-              currentPage === pg ? "bg-blue-600 text-white" : "border hover:bg-blue-100"
+              currentPage === pg
+                ? "bg-blue-600 text-white"
+                : "border hover:bg-blue-100"
             }`}
           >
             {pg}
@@ -234,7 +255,9 @@ const AllProductPage = () => {
         <button
           className="border px-3 py-1 rounded hover:bg-blue-100 transition"
           disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
         >
           Next
         </button>
