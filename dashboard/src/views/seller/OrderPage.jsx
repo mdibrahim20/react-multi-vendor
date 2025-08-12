@@ -1,13 +1,43 @@
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { motion } from "framer-motion";
-
+import { Link } from "react-router-dom";
 const dummyOrders = [
-  { id: 1, orderId: "#343434", price: "$562", paymentStatus: "Pending", orderStatus: "Pending" },
-  { id: 2, orderId: "#343435", price: "$670", paymentStatus: "Completed", orderStatus: "Shipped" },
-  { id: 3, orderId: "#343436", price: "$132", paymentStatus: "Pending", orderStatus: "Processing" },
-  { id: 4, orderId: "#343437", price: "$842", paymentStatus: "Failed", orderStatus: "Cancelled" },
-  { id: 5, orderId: "#343438", price: "$442", paymentStatus: "Completed", orderStatus: "Delivered" },
+  {
+    id: 1,
+    orderId: "#343434",
+    price: "$562",
+    paymentStatus: "Pending",
+    orderStatus: "Pending",
+  },
+  {
+    id: 2,
+    orderId: "#343435",
+    price: "$670",
+    paymentStatus: "Completed",
+    orderStatus: "Shipped",
+  },
+  {
+    id: 3,
+    orderId: "#343436",
+    price: "$132",
+    paymentStatus: "Pending",
+    orderStatus: "Processing",
+  },
+  {
+    id: 4,
+    orderId: "#343437",
+    price: "$842",
+    paymentStatus: "Failed",
+    orderStatus: "Cancelled",
+  },
+  {
+    id: 5,
+    orderId: "#343438",
+    price: "$442",
+    paymentStatus: "Completed",
+    orderStatus: "Delivered",
+  },
 ];
 
 const OrderPage = () => {
@@ -15,7 +45,7 @@ const OrderPage = () => {
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filtered = dummyOrders.filter(order =>
+  const filtered = dummyOrders.filter((order) =>
     order.orderId.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -61,7 +91,13 @@ const OrderPage = () => {
         <table className="min-w-full table-auto text-sm shadow rounded overflow-hidden">
           <thead>
             <tr className="bg-gray-100 text-gray-700">
-              {["ORDER ID", "PRICE", "PAYMENT STATUS", "ORDER STATUS", "ACTION"].map((head, i) => (
+              {[
+                "ORDER ID",
+                "PRICE",
+                "PAYMENT STATUS",
+                "ORDER STATUS",
+                "ACTION",
+              ].map((head, i) => (
                 <th key={i} className="py-3 px-4 text-left whitespace-nowrap">
                   {head}
                 </th>
@@ -82,14 +118,24 @@ const OrderPage = () => {
                 <td className="py-3 px-4">{order.price}</td>
                 <td className="py-3 px-4">{order.paymentStatus}</td>
                 <td className="py-3 px-4">{order.orderStatus}</td>
-                <td className="py-3 px-4">
+                {/* <td className="py-3 px-4">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     className="text-green-600 hover:text-green-800"
                   >
+                    
                     <FaEye />
                   </motion.button>
+                </td> */}
+                <td className="py-3 px-4">
+                  <Link
+                    to={`/seller/dashboard/order/${order.id}`}
+                    className="text-green-600 hover:text-green-800"
+                    title="View Order"
+                  >
+                    <FaEye />
+                  </Link>
                 </td>
               </motion.tr>
             ))}
@@ -111,7 +157,9 @@ const OrderPage = () => {
             key={pg}
             onClick={() => setCurrentPage(pg)}
             className={`px-3 py-1 rounded transition ${
-              currentPage === pg ? "bg-blue-600 text-white" : "border hover:bg-gray-100"
+              currentPage === pg
+                ? "bg-blue-600 text-white"
+                : "border hover:bg-gray-100"
             }`}
           >
             {pg}
@@ -120,7 +168,9 @@ const OrderPage = () => {
         <button
           className="border px-3 py-1 rounded hover:bg-gray-200 transition"
           disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
         >
           Next
         </button>
